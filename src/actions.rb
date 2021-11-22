@@ -1,6 +1,9 @@
-require_relative 'usage'
-class Actions
+# frozen_string_literal: true
 
+require_relative 'usage'
+
+# Wrapper class for all allowed actions
+class Actions
   def initialize
     @repo = DbRepo.new
   end
@@ -37,4 +40,17 @@ class Actions
     @repo.update_entry(argv[1], argv[2])
   end
 
+  def remove(argv)
+    unless argv.length == 2
+      puts remove_usage
+      exit 1
+    end
+
+    unless confirmation
+      puts 'aborting!'
+      exit 0
+    end
+
+    @repo.remove(argv[1])
+  end
 end

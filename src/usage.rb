@@ -12,3 +12,9 @@ def show_usage
     show requires more arguments:
     1. the id of the entry to show"
 end
+
+def remove_usage
+  "usage: jb remove/rm $id
+    remove requires more arguments:
+    1. the id of the entry to remove"
+end

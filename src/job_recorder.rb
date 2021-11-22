@@ -5,7 +5,7 @@ require_relative 'model/jobs_entry'
 require_relative 'io/io_helpers'
 require_relative 'actions'
 
-ALLOWED_ARGUMENTS = %i[a u s ls lsn add update list list-open show].freeze
+ALLOWED_ARGUMENTS = %i[a u s ls lsn rm add update list list-open show remove].freeze
 
 exit_with_usage if ARGV.empty? || !ALLOWED_ARGUMENTS.include?(ARGV[0].to_sym)
 argument = ARGV[0]
@@ -18,6 +18,8 @@ when :add, :a
   actions.add
 when :update, :u
   actions.update(ARGV)
+when :remove, :rm
+  actions.remove(ARGV)
 when :list, :ls
   actions.list
 when :'list-open', :lso

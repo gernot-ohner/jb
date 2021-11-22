@@ -1,10 +1,20 @@
+# frozen_string_literal: true
+
 def exit_with_usage
   print_usage
   exit 1
 end
 
 def print_usage
-  puts 'Usage: jobs [add/a, update/u, list/ls, list-open/lsn]'
+  puts 'Usage: jobs [show/s add/a, update/u, remove/rm list/ls, list-open/lsn]'
+end
+
+def confirmation
+  answer = ''
+  answer = prompt 'Are you sure? (y/n)' while answer != 'y' && answer != 'n'
+  return true if answer == 'y'
+
+  false
 end
 
 def prompt(text)
