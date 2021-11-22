@@ -13,6 +13,12 @@ class Actions
       puts show_usage
       exit 1
     end
+    id = argv[1]
+    unless @repo.id_exists?(id)
+      puts id_does_not_exist(id)
+      exit 2
+    end
+
     @repo.entry(argv[1])
   end
 
@@ -37,6 +43,11 @@ class Actions
       puts update_usage
       exit 1
     end
+    id = argv[1]
+    unless @repo.id_exists?(id)
+      puts id_does_not_exist(id)
+      exit 2
+    end
     @repo.update_entry(argv[1], argv[2])
   end
 
@@ -45,12 +56,17 @@ class Actions
       puts remove_usage
       exit 1
     end
+    id = argv[1]
+    unless @repo.id_exists?(id)
+      puts id_does_not_exist(id)
+      exit 2
+    end
 
     unless confirmation
       puts 'aborting!'
       exit 0
     end
 
-    @repo.remove(argv[1])
+    @repo.remove(id)
   end
 end

@@ -1,5 +1,5 @@
 class JobsEntity
-  attr_accessor :company, :url, :roles, :locations, :notes, :status
+  attr_accessor :id, :company, :url, :roles, :locations, :notes, :status
 
   # def initialize_from_hash(entry_hash)
   #   @company = entry_hash[:company]

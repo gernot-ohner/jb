@@ -18,3 +18,7 @@ def remove_usage
     remove requires more arguments:
     1. the id of the entry to remove"
 end
+
+def id_does_not_exist(id)
+  "error: id #{id} does not exist in the database"
+end

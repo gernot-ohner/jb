@@ -37,6 +37,20 @@ class DbRepo
     end
     entries
   end
+  
+  def list_indices
+    list_entries.map(&:id)
+  end
+
+  def id_exists?(id)
+    exists_query = <<-SQL
+      SELECT EXISTS(SELECT * FROM applications WHERE id = ?)
+    SQL
+    @db.execute(exists_query, id) do |result|
+      return result.any? { |res| res == 1 }
+    end
+    0
+  end
 
   def list_not_closed_entries
     entries = []
