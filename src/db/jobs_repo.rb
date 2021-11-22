@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'sqlite3'
 
 require_relative 'entity'
 
 class DbRepo
-
   def initialize
     @db = SQLite3::Database.new '../../jobs.db'
     init_table
@@ -37,7 +38,7 @@ class DbRepo
     end
     entries
   end
-  
+
   def list_indices
     list_entries.map(&:id)
   end

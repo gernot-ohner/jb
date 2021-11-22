@@ -13,13 +13,8 @@ class Actions
       puts show_usage
       exit 1
     end
-    id = argv[1]
-    unless @repo.id_exists?(id)
-      puts id_does_not_exist(id)
-      exit 2
-    end
-
-    @repo.entry(argv[1])
+    id = validate_id(argv)
+    @repo.entry(id)
   end
 
   def list
@@ -39,16 +34,11 @@ class Actions
 
   def update(argv)
     unless argv.length == 3
-      # add checking if the provided id actually exists
       puts update_usage
       exit 1
     end
-    id = argv[1]
-    unless @repo.id_exists?(id)
-      puts id_does_not_exist(id)
-      exit 2
-    end
-    @repo.update_entry(argv[1], argv[2])
+    id = validate_id(argv)
+    @repo.update_entry(id, argv[2])
   end
 
   def remove(argv)
@@ -56,11 +46,7 @@ class Actions
       puts remove_usage
       exit 1
     end
-    id = argv[1]
-    unless @repo.id_exists?(id)
-      puts id_does_not_exist(id)
-      exit 2
-    end
+    id = validate_id(argv)
 
     unless confirmation
       puts 'aborting!'
@@ -68,5 +54,16 @@ class Actions
     end
 
     @repo.remove(id)
+  end
+
+  private
+
+  def validate_id(argv)
+    id = argv[1]
+    unless @repo.id_exists?(id)
+      puts id_does_not_exist(id)
+      exit 2
+    end
+    id
   end
 end
