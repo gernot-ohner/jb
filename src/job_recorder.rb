@@ -3,32 +3,27 @@
 require_relative 'db/jobs_repo'
 require_relative 'model/jobs_entry'
 require_relative 'io/io_helpers'
+require_relative 'actions'
 
-possible_arguments = %i[add update ls]
-if ARGV.empty? || !possible_arguments.include?(ARGV[0].to_sym)
-  puts 'Usage: jobs [add/a, update/u, list/ls, list-open/lsn]'
-  exit 1
-end
+ALLOWED_ARGUMENTS = %i[a u s ls lsn add update list list-open show].freeze
+
+exit_with_usage if ARGV.empty? || !ALLOWED_ARGUMENTS.include?(ARGV[0].to_sym)
 argument = ARGV[0]
-repo = DbRepo.new
-
+actions = Actions.new
 
 case argument.to_sym
+when :show, :s
+  actions.show(ARGV)
 when :add, :a
-  puts 'adding entry'
-  repo.add_entry(prompt_for_entry)
+  actions.add
 when :update, :u
-  puts "updating entry with id #{ARGV[1]} to status #{ARGV[2]}"
-  repo.update_entry(ARGV[1], ARGV[2])
+  actions.update(ARGV)
 when :list, :ls
-  puts 'listing entries'
-  puts repo.list_entries
+  actions.list
 when :'list-open', :lso
-  puts 'listing not closed entries'
-  puts repo.list_entries
+  actions.list_open
 else
-  puts 'Usage: jobs [add, update, ls]'
-  exit 1
+  exit_with_usage
 end
 
 

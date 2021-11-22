@@ -57,4 +57,10 @@ class DbRepo
       puts JobsEntity.new(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
     end
   end
+
+  def entry(id)
+    @db.execute('select * from applications WHERE id = ?', id) do |row|
+      puts JobsEntity.new(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
+    end
+  end
 end

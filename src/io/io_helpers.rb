@@ -1,3 +1,11 @@
+def exit_with_usage
+  print_usage
+  exit 1
+end
+
+def print_usage
+  puts 'Usage: jobs [add/a, update/u, list/ls, list-open/lsn]'
+end
 
 def prompt(text)
   puts text
